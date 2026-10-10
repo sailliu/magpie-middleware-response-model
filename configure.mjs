@@ -52,11 +52,12 @@ function parseArgs() {
 async function command(args) {
   try {
     return (await exec(settings.magpie, ["plugin", "options", settings.plugin, ...args], {
-      timeout: 20000, maxBuffer: 1024 * 1024, windowsHide: true,
+      timeout: 120000, maxBuffer: 1024 * 1024, windowsHide: true,
       env: { ...process.env, NO_COLOR: "1" },
     })).stdout;
   } catch (error) {
     if (error.code === "ENOENT") throw fail("找不到 Magpie，请用 --magpie 指定可执行文件路径", 503);
+    if (error.killed) throw fail("Magpie 命令等待超过两分钟，请刷新页面确认配置是否已保存后再重试", 504);
     throw fail("Magpie 命令未成功执行，请确认插件已安装、可执行文件路径正确且使用同一用户", 503);
   }
 }
