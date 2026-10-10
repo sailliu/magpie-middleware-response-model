@@ -1,0 +1,11 @@
+{
+  "name": "magpie-middleware-response-model",
+  "version": "0.1.0",
+  "type": "module",
+  "files": ["response-model.middleware.js"],
+  "magpie": {
+    "middleware": "./response-model.middleware.js",
+    "options": { "model": "" },
+    "optionsModel": "model"
+  }
+}
